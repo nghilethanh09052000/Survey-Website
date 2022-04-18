@@ -1,0 +1,24 @@
+@import '../../styles/constant.scss';
+
+.footer{
+    background-color:$primary_color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    .footer_containter{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+     
+        .footer_containter_box1{
+          
+            text-align: center;
+            align-items: center;
+            margin-right: 10px;
+            p{
+                color:$text_color_primary;
+            }
+        }
+    }
+}

@@ -1,0 +1,24 @@
+@import '../../styles/constant.scss';
+.header{
+    
+    background-color:$primary_color;
+    padding: 15px 30px;
+   
+    .header_container{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .header_containter_box1,.header_containter_box2{
+  
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            justify-content: space-between;
+           .box2{
+                margin-left: 20px;
+                color:$text_color_primary;
+           }
+         
+        }
+    }
+}
