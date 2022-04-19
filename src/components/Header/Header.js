@@ -1,6 +1,6 @@
 import './Header.scss'
 import {COLORS} from '../../styles/constants'
-
+import { Link } from 'react-router-dom';
 
 import {  
      Button
@@ -23,7 +23,10 @@ const Header = () => {
                     <Button
                         endIcon={<ArrowForwardIosIcon sx={{color:COLORS.text_color}}/>}
                     >
-                     <p className='box2'>I have change my mind</p>
+                    <Link to='/changemind'>
+                        <p className='box2'>I have change my mind</p>
+                    </Link>
+                     
                     </Button>
                    
                 </div>
