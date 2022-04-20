@@ -12,20 +12,20 @@ import './Consent.scss'
 import {COLORS} from '../../styles/constants'
 
 
-
 import { useNavigate } from "react-router-dom";
 
 //Redux Actions:
 import { captchaAction } from "../../redux/actions/actions";
 //Redux Selectors:
-import { captchaMode } from "../../redux/selectors.js/selectors";
+import { captchaMode } from "../../redux/selectors/selectors";
 //Import React-Redux
 import { useDispatch , useSelector } from "react-redux";
 
 const Consent = () => {
- 
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
     const setCaptChaMode = useSelector(captchaMode)
  
     const handleCaptchaChange = (value) =>{
@@ -40,10 +40,8 @@ const Consent = () => {
 
     const handleAgree = () =>{
         if(setCaptChaMode.captchaCheck){
+
             navigate('/survey')
-        }else{
-            alert('Please check on Captcha')
-            
         }
     }
    
@@ -164,30 +162,35 @@ const Consent = () => {
                             />
                             </form>
                         </Container>
+
+
                         <Container 
-                        sx={{marginTop:'15px' ,width:650,marginBottom:5}}
+                            sx={{marginTop:'15px' ,width:650,marginBottom:5}}
                             >
-                            <Box sx={{ justifyContent:'space-around',display:'flex', alignItems:'center',}}>
-                                <Button 
-                                    variant="outlined"
-                                    sx={{color:COLORS.primary_color ,
-                                     textTransform:'none',
-                                     fontWeight:'bold',
-                                     border:`1px solid ${COLORS.primary_color}`
-                                     }}
-                                    onClick={handleCloseWindow}
+                            {setCaptChaMode.captchaCheck &&
+                                <Box sx={{ justifyContent:'space-around',display:'flex', alignItems:'center',}}>
+                                    <Button 
+                                        variant="outlined"
+                                        sx={{color:COLORS.primary_color ,
+                                        textTransform:'none',
+                                        fontWeight:'bold',
+                                        border:`1px solid ${COLORS.primary_color}`
+                                        }}
+                                        onClick={handleCloseWindow}
+                                        >
+                                        Cancel
+                                    </Button>
+                                    <Button 
+                                        variant="contained" 
+                                        sx={{background:COLORS.primary_color,textTransform:'none',fontWeight:'bold'}}
+                                        onClick={handleAgree}
+                                        
                                     >
-                                    Cancel
-                                </Button>
-                                <Button 
-                                    variant="contained" 
-                                    sx={{background:COLORS.primary_color,textTransform:'none',fontWeight:'bold'}}
-                                    onClick={handleAgree}
-                                    
-                                >
-                                    I have read and agree with the terms of use
-                                </Button>
+                                        I have read and agree with the terms of use
+                                    </Button>
                             </Box>
+                            }
+                           
                             
                         </Container>
                     </Paper>

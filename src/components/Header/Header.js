@@ -13,7 +13,13 @@ const Header = () => {
             <div className='header_container'>
                 <div className='header_containter_box1'>
                     <div className='box1'>
-                        <AdminPanelSettingsIcon sx={{color:'#ffff', width:'50px', height:'50px'}}/>
+                
+                            <AdminPanelSettingsIcon 
+                                sx={{color:'#ffff', width:'50px', height:'50px'}}
+
+                            />
+                 
+                       
                     </div>
                     <div className='box2'>
                         <p>FAMILIES USING TECHNOLOGY SURVEY</p>
