@@ -9,26 +9,26 @@ import { Typography,
     Button
 
 } from "@mui/material";
-import { useState } from "react";
+
 import {COLORS} from '../../styles/constants'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 //import  Selector
-import { answerMode , questionMode } from "../../redux/selectors/selectors";
+import {  questionMode } from "../../redux/selectors/selectors";
 import { useDispatch , useSelector } from "react-redux";
 //import Action:
 import { questionAction, answerAction } from "../../redux/actions/actions";
 
 const SingleSelection = ({question}) => {
     const dispatch = useDispatch()
-    const [valueRadius , setValueRadius] =useState('');
-    const setAnswerMode = useSelector(answerMode)
+  
+
     const setQuestionMode = useSelector(questionMode)
     
 
 
 
     const handleRadioChange = (e) =>{
-        setValueRadius(e.target.value)
+   
         dispatch(answerAction({
             id:question.id,
             value:e.target.value,

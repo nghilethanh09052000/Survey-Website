@@ -1,7 +1,5 @@
 
 import { Typography,
- 
-    Paper,
     Box,
     Card,
    CardContent,
@@ -10,7 +8,7 @@ import { Typography,
 
 } from "@mui/material";
 import {COLORS} from '../../styles/constants'
-import CloseIcon from '@mui/icons-material/Close';
+
 const PopUp = ({popUp, setPopUp}) => {
     const handlePopUp = () =>{
         setPopUp(false)

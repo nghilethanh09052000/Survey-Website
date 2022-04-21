@@ -22,7 +22,7 @@ import { useNavigate } from "react-router-dom";
 
 
 //import  Selector
-import { answerMode , submitMode } from "../../redux/selectors/selectors";
+import { answerMode } from "../../redux/selectors/selectors";
 import { useDispatch , useSelector } from "react-redux";
 //import Action:
 import { submitAction } from "../../redux/actions/actions";
