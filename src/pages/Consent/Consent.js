@@ -167,7 +167,7 @@ const Consent = () => {
                         <Container 
                             sx={{marginTop:'15px' ,width:650,marginBottom:5}}
                             >
-                            {setCaptChaMode.captchaCheck &&
+                       
                                 <Box sx={{ justifyContent:'space-around',display:'flex', alignItems:'center',}}>
                                     <Button 
                                         variant="outlined"
@@ -184,12 +184,13 @@ const Consent = () => {
                                         variant="contained" 
                                         sx={{background:COLORS.primary_color,textTransform:'none',fontWeight:'bold'}}
                                         onClick={handleAgree}
+                                        disabled={setCaptChaMode.captchaCheck===false ? true :false}
                                         
                                     >
                                         I have read and agree with the terms of use
                                     </Button>
                             </Box>
-                            }
+                            
                            
                             
                         </Container>
