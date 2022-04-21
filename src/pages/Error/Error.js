@@ -11,7 +11,7 @@ const Error = () => {
         <Container>
             <Box sx={{display:'flex', justifyContent:'center',marginBottom:'30px'}}>
                 <Typography color='error'>
-                    This page is no longer available
+                    This page is no longer available.
                 </Typography>
             </Box>
             <Box sx={{display:'flex', justifyContent:'center'}}>

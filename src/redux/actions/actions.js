@@ -12,3 +12,9 @@ export const answerAction =(data) =>({
     type:'SET_USER_ANSWER',
     payload:data
 })
+
+export const submitAction =(payload) =>({
+    type:'SET_SUBMIT_ACTION',
+    submit:payload
+    
+})

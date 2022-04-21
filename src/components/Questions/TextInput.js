@@ -10,22 +10,25 @@ import {COLORS} from '../../styles/constants'
 import { useState } from "react";
 
 //import  Selector
-import { answerMode , questionMode } from "../../redux/selectors/selectors";
+import { questionMode } from "../../redux/selectors/selectors";
 import { useDispatch , useSelector } from "react-redux";
 //import Action:
 import { questionAction , answerAction } from "../../redux/actions/actions";
+import { useNavigate } from "react-router-dom";
 
 const TextInput = ({question}) => {
-  const [valueText , setValueText] = useState('')
-
+  const [valueText , setValueText] = useState(question.userAnswer==='' ? '' : question.userAnswer)
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const setQuestionMode = useSelector(questionMode)
-  const setAnswerMode = useSelector(answerMode)
+
+
   const handleNextButton = () =>{
       dispatch(answerAction({
           id:question.id,
           value:valueText,
       }))
+      navigate('/submit')
   }
 
   const handleBackButton = () =>{
@@ -35,7 +38,8 @@ const TextInput = ({question}) => {
   const handleTextChange = (e) =>{
     setValueText(e.target.value)
   }
-  console.log(setAnswerMode)
+
+
     return (
       <Box>
       <Box sx={{display:'flex',justifyContent:'space-between', alignItem:'center'}}>
@@ -66,7 +70,6 @@ const TextInput = ({question}) => {
           </Box>
           <Box>
             <TextField
-            
               multiline
               rows={5}
               fullWidth
@@ -76,10 +79,11 @@ const TextInput = ({question}) => {
                 border: valueText.length >=2000 && '1px solid red'
               }}
               onChange={handleTextChange}
-              value={valueText}
+              defaultValue={question.userAnswer==='' ? valueText : question.userAnswer}
               inputProps={{
                 maxLength:2000
               }}
+           
             />
           </Box>
             <Box sx={{marginBottom:'10px',display:'flex', justifyContent:'center'}}>
@@ -94,15 +98,15 @@ const TextInput = ({question}) => {
             </Box>
             
             <Box sx={{marginBottom:5,display:'flex', justifyContent:'center'}}>
-              <Button
-                variant="contained"
-                sx={{bgcolor:COLORS.primary_color,textTransform:'none'}}
-                onClick={handleNextButton}
-                disabled={valueText.length < 2000 ? false : true}
-              >
-                  Continue
-              </Button>
-            </Box>
+                <Button
+                  variant="contained"
+                  sx={{bgcolor:COLORS.primary_color,textTransform:'none'}}
+                  onClick={handleNextButton}
+                  disabled={valueText.length < 2000 ? false : true}
+                >
+                    Continue
+                </Button>
+              </Box>
       </Container>
 
   </Box>

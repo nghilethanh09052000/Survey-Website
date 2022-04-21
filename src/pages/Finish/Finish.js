@@ -8,7 +8,14 @@ import {
 
 } from "@mui/material";
 import {COLORS} from '../../styles/constants'
+//import  Selector
+import {  submitMode } from "../../redux/selectors/selectors";
+import {  useSelector } from "react-redux";
+
 const Finish = () => {
+   
+    const setSubMitMode = useSelector(submitMode)
+    console.log(setSubMitMode)
     return ( 
         <Container sx={{marginTop:5, marginBottom:'100px'}}>
             <Container>

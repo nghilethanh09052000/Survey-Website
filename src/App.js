@@ -9,16 +9,21 @@ import Consent from './pages/Consent/Consent';
 import Survey from './pages/Survey/Survey';
 import Error from './pages/Error/Error';
 import ChangeMind from './pages/ChangeMind/ChangeMind';
+import Submit from './pages/Submit/Submit';
 import Finish from './pages/Finish/Finish';
 
 //Redux Selectors:
-import { captchaMode } from './redux/selectors/selectors';
+import { captchaMode , 
+  questionMode ,
+  submitMode
+
+} from './redux/selectors/selectors';
 //Import React-Redux
 import {  useSelector } from "react-redux";
 function App() {
   const setCaptChaMode = useSelector(captchaMode)
-
-  console.log(setCaptChaMode)
+  const setQuestionMode = useSelector(questionMode)
+  const setSubmitMode = useSelector(submitMode)
   return (
     <div className="App">
         <Router>
@@ -26,10 +31,21 @@ function App() {
             <Routes>
               <Route path='/' element={<Consent/>} />
               <Route path='/changemind' element={<ChangeMind/>} />
-      
+              {//Check if a captcha has been created 
+                setCaptChaMode.captchaCheck &&
                   <Route path='survey' element={<Survey/>} />
-       
-              <Route path='/finish' element={<Finish/>} />
+                
+              }
+              {// Check if user has answered all the question
+                setQuestionMode.question ===3 &&
+                <Route path='/submit' element={<Submit/>} />
+              }
+              {
+                //Check if submitting is successfull
+                setSubmitMode.isSubmit &&
+                <Route path='/finish' element={<Finish/>} />
+              }
+              
               <Route path='*' element={<Error/>} />
             </Routes>
           <Footer/>

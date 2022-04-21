@@ -8,9 +8,21 @@ import { Container,
  from "@mui/material";
  import {  Link} from "react-router-dom";
 import {COLORS} from '../../styles/constants'
-
+//import  Selector
+import { answerMode } from "../../redux/selectors/selectors";
+import { useDispatch , useSelector } from "react-redux";
+//import Action:
+import {answerAction } from "../../redux/actions/actions";
 const ChangeMind = () => {
+    const dispatch = useDispatch()
+    const setAnswerMode = useSelector(answerMode)
+    console.log(setAnswerMode)
+
     const handleCloseWindow = () =>{
+        dispatch(answerAction(setAnswerMode.map(answer=>(
+            answer.userAnswer=''
+        ))))
+
         window.open("about:blank", "_self");
         window.close();
     }
@@ -83,22 +95,23 @@ const ChangeMind = () => {
                                 </Button>
                             </Box>
                             <Box sx={{marginTop:'10px'}}>
-                                <Button
+                                <Link to='/survey' style={{color:COLORS.primary_color , textDecoration:'none'}}>
+                                        <Button
                                     variant="outlined"
                                     sx={{
                                         fontWeight:'bold',
                                         textTransform:'none',
-                                       
+                                        color:COLORS.primary_color,
                                         border:`1px solid ${COLORS.primary_color}`,
                                         width:'200px',
                                 
                                     }}
                                    
-                                >
-                                   <Link to='/survey' style={{textDecoration:'none', color:COLORS.primary_color}}>
-                                       Back to survey
-                                   </Link>
+                                    >
+                                    Back to survey
                                 </Button>
+                                </Link>
+                            
                             </Box>
                             
                         </Container>

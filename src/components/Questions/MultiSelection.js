@@ -3,64 +3,61 @@ import { Typography,
   Paper,
   Box,
   Button,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Checkbox,
-  ListItemText,
-  OutlinedInput,
 
-  Radio
 } from "@mui/material";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import {COLORS} from '../../styles/constants'
 import { useState } from "react";
+import { MultiSelect } from "react-multi-select-component";
 
 //import  Selector
-import { answerMode , questionMode } from "../../redux/selectors/selectors";
+import { questionMode } from "../../redux/selectors/selectors";
 import { useDispatch , useSelector } from "react-redux";
 //import Action:
-import { questionAction } from "../../redux/actions/actions";
+import { questionAction , answerAction } from "../../redux/actions/actions";
 
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
+
 
 
 const MultiSelection = ({question}) => {
     const dispatch = useDispatch();
-    const setAnswerMode = useSelector(answerMode)
+
     const setQuestionMode = useSelector(questionMode)
-
-
     const [valueCheckBox, setValueCheckBox] = useState([]);
-    const [checkAll , setCheckAll] = useState(false)
-
     const handleBackButton = () =>{
       dispatch(questionAction(setQuestionMode.question -1))
     }
     const handleNextButton = () =>{
+      dispatch(answerAction({
+        id:question.id,
+        value:valueCheckBox,
+      }))
       dispatch(questionAction(setQuestionMode.question +1))
     }
 
-    const handleChange = (e) => {
-   
-      setValueCheckBox(e.target.value)
-    
-    };
-    console.log(setAnswerMode)
-    console.log(valueCheckBox)
-    
-   
+    const handleNextButton2 = () =>{
+      if(valueCheckBox.length > 0){
+     
+        dispatch(answerAction({
+          id:question.id,
+          value:valueCheckBox,
+        }))
+        dispatch(questionAction(setQuestionMode.question +1))
+      }
+      if( valueCheckBox.length===0  ){
+
+        dispatch(answerAction({
+          id:question.id,
+          value:question.userAnswer,
+        }))
+        dispatch(questionAction(setQuestionMode.question +1))
+      }
+     
+    }
+ 
+
+
     return (
       <Box>
       <Box sx={{display:'flex',justifyContent:'space-between', alignItem:'center'}}>
@@ -91,44 +88,49 @@ const MultiSelection = ({question}) => {
           </Box>
 
           <Box sx={{marginBottom:5}}>
-            <FormControl sx={{border:`1px solid ${COLORS.primary_color} ` , width: '100%' }}>
-            <InputLabel id="demo-multiple-checkbox-label">Language</InputLabel>
-            <Select
-              labelId="demo-multiple-checkbox-label"
-              id="demo-multiple-checkbox"
-              multiple
-              value={valueCheckBox}
-              onChange={handleChange}
-              renderValue={(selected) => selected.join(', ')}
-              input={<OutlinedInput label="Tag" />}
-              MenuProps={MenuProps}
-            >
-              <MenuItem value={question.answer}>
-                <Checkbox checked={checkAll ? true : false}/>
-                <ListItemText primary='Select All' />
-              </MenuItem>
-              {question.answer.map((answer) => (
-                <MenuItem key={answer} value={answer}>
-                  <Checkbox 
-                    checked={valueCheckBox.indexOf(answer) > -1} 
+  
+          <MultiSelect
+            options={question.answer}
+            value={valueCheckBox}
+            onChange={setValueCheckBox}
+            labelledBy="Select"
+            valueRenderer={ (selected)=>{
+              if(selected.length===0){
+                if(question.userAnswer===''){
+                  return 'Search...'
+                }else{
+                  return question.userAnswer.map(answer=>
+                    answer.label.concat(' ')
+                )
+                }
+              }
+            }}
 
-                  />
-                  <ListItemText primary={answer} />
-                </MenuItem>
-              ))}
-            </Select>
-            
-            </FormControl>
-          </Box>
+          />
+           </Box>
 
           <Box sx={{marginBottom:5,display:'flex', justifyContent:'center'}}>
-              <Button
+          {question.userAnswer ==='' &&
+            <Button
                 variant="contained"
                 sx={{bgcolor:COLORS.primary_color,textTransform:'none'}}
                 onClick={handleNextButton}
-              >
+                disabled={ valueCheckBox.length===0  ? true : false }
+                >
                   Continue
               </Button>
+          }
+          
+              {question.userAnswer !== '' &&
+                  <Button
+                    variant="contained"
+                    sx={{bgcolor:COLORS.primary_color,textTransform:'none'}}
+                    onClick={handleNextButton2}
+                  >
+                  Continue
+                  </Button>
+              }
+            
           </Box>
 
          

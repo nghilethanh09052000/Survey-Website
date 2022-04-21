@@ -5,7 +5,8 @@ import { Typography,
     RadioGroup,
     FormControlLabel,
     Radio,
-    Grid
+    Grid,
+    Button
 
 } from "@mui/material";
 import { useState } from "react";
@@ -19,16 +20,15 @@ import { questionAction, answerAction } from "../../redux/actions/actions";
 
 const SingleSelection = ({question}) => {
     const dispatch = useDispatch()
-
+    const [valueRadius , setValueRadius] =useState('');
     const setAnswerMode = useSelector(answerMode)
-   
     const setQuestionMode = useSelector(questionMode)
     
-    const [radiusValue , setRadiusValue] = useState('') 
+
 
 
     const handleRadioChange = (e) =>{
-        setRadiusValue(e.target.value)
+        setValueRadius(e.target.value)
         dispatch(answerAction({
             id:question.id,
             value:e.target.value,
@@ -36,8 +36,11 @@ const SingleSelection = ({question}) => {
 
         dispatch(questionAction(setQuestionMode.question + 1))
     }
-    console.log(setAnswerMode)
 
+    const handleNextButton = () =>{
+        dispatch(questionAction(setQuestionMode.question + 1))
+    }
+ 
 
      return (
        <Box>
@@ -60,12 +63,12 @@ const SingleSelection = ({question}) => {
                    </Typography>
                </Box>
 
-               <Box>
+               <Box sx={{marginBottom:5}}>
                     <RadioGroup
                         aria-labelledby="demo-controlled-radio-buttons-group"
                         name="controlled-radio-buttons-group"
                         onChange={handleRadioChange}
-                        value={radiusValue}
+                        value={question.userAnswer}
                     >
                   
                             <Grid container rowSpacing={3}>
@@ -84,7 +87,7 @@ const SingleSelection = ({question}) => {
                                         label={answer}
                                         sx=
                                             {{
-                                                border: radiusValue===answer
+                                                border: question.userAnswer===answer
                                                 ?  `2px solid ${COLORS.primary_color}` 
                                                 : `1px solid ${COLORS.border_color_primary}`,
                                                 width:'100%'
@@ -104,6 +107,18 @@ const SingleSelection = ({question}) => {
                        
                     </RadioGroup>
                </Box>
+               <Box sx={{marginBottom:5,display:'flex', justifyContent:'center'}}>
+                {question.userAnswer!=='' &&
+                    <Button
+                        variant="contained"
+                        sx={{bgcolor:COLORS.primary_color,textTransform:'none'}}
+                        onClick={handleNextButton}
+                    >
+                        Continue
+                    </Button>
+                }
+              
+            </Box>
            </Container>
 
        </Box>

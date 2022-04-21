@@ -5,20 +5,20 @@ import {
 
 } from "@mui/material";
 
-import {questions} from '../../questions/questions'
+
 //components
 import SingleSelection from '../../components/Questions/SingleSelection'
 import MultiSelection from '../../components/Questions/MultiSelection'
 import TextInput from '../../components/Questions/TextInput'
 //Redux:
 import {  useSelector } from "react-redux";
-import { questionMode } from "../../redux/selectors/selectors";
+import { questionMode ,answerMode} from "../../redux/selectors/selectors";
 
 
 const Survey = () => {
-   
-    const setQuestionMode = useSelector(questionMode);
-
+    
+    const setQuestionMode = useSelector(questionMode)
+    const questions = useSelector(answerMode)
     const renderQuestion = () =>{
         switch(setQuestionMode.question){
             case 1:
@@ -39,13 +39,7 @@ const Survey = () => {
                     <Paper sx={{display:'grid' , justifyContent:'center', alignContent:'center'}}> 
                         <Container sx={{width:'700px',marginTop:'20px'}}>
                                         {renderQuestion()}
-                                       {/* <SingleSelection/>
-                                       
-
-                                         <MultiSelection/>
-
-                                        <TextInput/>  */}
-                        
+                              
 
                             
 
