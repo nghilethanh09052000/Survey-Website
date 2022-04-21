@@ -75,7 +75,7 @@ const Submit = () => {
 
 
     const handleSubmit = () =>{
-        if( (errorName || errorEmail)) {
+        if( (errorName || errorEmail || name==='' || email===''  )) {
             setPopUp(true)
         }else{
             dispatch(submitAction({
